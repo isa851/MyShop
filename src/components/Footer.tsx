@@ -1,7 +1,10 @@
-import React from 'react';
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, CreditCard, Shield, Truck, RotateCcw } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, CreditCard, Shield, Truck, RotateCcw, ChevronDown, ChevronUp } from 'lucide-react';
 
 const Footer: React.FC = () => {
+  // State to manage which section is open (null means no section is open)
+  const [openSection, setOpenSection] = useState<string | null>(null);
+
   return (
     <footer className="bg-gray-900 text-white">
       {/* Main Footer */}
@@ -32,10 +35,16 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Quick Links - Collapsible on mobile with accordion behavior */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Quick Links</h4>
-            <ul className="space-y-2">
+            <button
+              onClick={() => setOpenSection(openSection === 'quickLinks' ? null : 'quickLinks')}
+              className="flex items-center justify-between w-full text-lg font-semibold focus:outline-none md:hidden"
+            >
+              <span>Quick Links</span>
+              {openSection === 'quickLinks' ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+            </button>
+            <ul className={`space-y-2 ${openSection === 'quickLinks' ? 'block' : 'hidden'} md:block`}>
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">About Us</a></li>
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Contact</a></li>
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Support</a></li>
@@ -45,10 +54,16 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Categories */}
+          {/* Categories - Collapsible on mobile with accordion behavior */}
           <div className="space-y-4">
-            <h4 className="text-lg font-semibold">Categories</h4>
-            <ul className="space-y-2">
+            <button
+              onClick={() => setOpenSection(openSection === 'categories' ? null : 'categories')}
+              className="flex items-center justify-between w-full text-lg font-semibold focus:outline-none md:hidden"
+            >
+              <span>Categories</span>
+              {openSection === 'categories' ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+            </button>
+            <ul className={`space-y-2 ${openSection === 'categories' ? 'block' : 'hidden'} md:block`}>
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Smartphones</a></li>
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Laptops</a></li>
               <li><a href="#" className="text-gray-300 hover:text-white transition-colors">Tablets</a></li>
@@ -76,20 +91,7 @@ const Footer: React.FC = () => {
               </div>
             </div>
             
-            {/* Newsletter */}
-            <div className="pt-4">
-              <h5 className="font-medium mb-2">Newsletter</h5>
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="flex-1 px-3 py-2 bg-gray-800 border border-gray-700 rounded-l-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
-                />
-                <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-r-lg transition-colors">
-                  Subscribe
-                </button>
-              </div>
-            </div>
+          
           </div>
         </div>
       </div>
